@@ -1,0 +1,40 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>p5.js</title>
+    
+    <meta name="description" content="p5.js on Glitch">
+    
+    
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    
+    <script src="/p5.min.js"></script> 
+    <script src="/p5.dom.js"></script>
+    <script src="/p5.sound.js"></script>
+    <script src="/sketch.js"></script>  
+    
+  </head>
+  <body>
+    <header>
+      
+    </header>  
+    
+     <div class="form-container">
+      
+      <form id="submit-container" action="/api" method="post">  
+        <input id="uid" class="input" type="text" name="username" placeholder="userId*">
+        <input id="score" type="text" class="score" name="score" placeholder="score*" readonly>
+        <input type="submit" value="Submit" class="input" id="submit"> 
+        <h3 class="input">Ranking</h3>
+      </form>
+     </div>
+    
+  </body>
+  
+ 
+    
+
+</html>
