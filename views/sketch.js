@@ -47,7 +47,7 @@ function setup() {
   smooth();
   var inn = select("#submit-container");
   inn.hide();
-  over = true;
+  over = false;
   score = 0;
 }
 
