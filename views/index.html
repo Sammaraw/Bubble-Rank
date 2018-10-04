@@ -15,6 +15,7 @@
     <script src="/p5.dom.js"></script>
     <script src="/p5.sound.js"></script>
     <script src="/sketch.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
     
   </head>
   <body>
@@ -28,13 +29,31 @@
         <input id="uid" class="input" type="text" name="username" placeholder="userId*">
         <input id="score" type="text" class="score" name="score" placeholder="score*" readonly>
         <input type="submit" value="Submit" class="input" id="submit"> 
-        <h3 class="input">Ranking</h3>
+        <h3 class="input" id="rank">Ranking</h3>
       </form>
+       <p id="result"></p>
      </div>
     
   </body>
   
- 
+  <script>
+  $(document).ready(function(){
+      $("#rank").on("click",function(){
+         console.log("clicking");
+         $.ajax({ 
+            type:"GET", 
+            url:"https://splah.glitch.me/api/rank/result", 
+            success:function(data){ 
+                //$("#result").append(data[0].content)
+              console.log(data[0].content);
+              //$("#result").innerHTML = data[0].content;
+            }    
+       });
+      })
+    }
+  )
+  </script>
+  
     
 
 </html>

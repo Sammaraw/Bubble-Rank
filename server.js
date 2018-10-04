@@ -62,7 +62,7 @@ app.post('/api',function(req,res,next){
             console.log(err.message)
           }else{
             //show ranking result for top 5 player
-            res.redirect('back')
+            res.redirect('/')
           }
         })
           }
@@ -74,7 +74,15 @@ app.post('/api',function(req,res,next){
 })
 
 app.get("/api/rank/result",function(req,res,err){
-
+  user.find().sort({'score':1}).exec(function(err,docs){
+          if (err){
+            console.log(err.message)
+          }else{
+            //show ranking result for top 5 player
+            res.send(docs);
+          }
+        })
+          
 })
 
 // Not found middleware
