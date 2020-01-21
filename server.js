@@ -16,12 +16,10 @@ const schema = mongoose.Schema;
 const exerschema = new schema(
  {
     'Name':String,
-   'score':String
+    'score':Number
 })
 
-
 const user =  mongoose.model('user',exerschema);
-
 
 app.use(cors())
 
@@ -42,47 +40,38 @@ app.get('/', (req, res) => {
 app.post('/api',function(req,res,next){
   var name = req.body.username
   var score = req.body.score
-  console.log(req.body)
   user.find({'Name':name},function(err,docs){
      if (err){
        console.log(err.message)
      }else{
-       console.log(docs)
-      if (docs.length!=0){
+       console.log(docs);
+       console.log(docs.length);
+      if (docs.length != 0){
         res.json({'err':"Username is taken!"})
       }else{
-        console.log("User successfully created!")
         var newu = new user({'Name':name,'score':score});
         newu.save(function(err){
           if (err){
             console.log(err.message)
           }else{
-            user.find().sort({'score':1}).exec(function(err,docs){
-          if (err){
-            console.log(err.message)
-          }else{
-            //show ranking result for top 5 player
-            res.redirect('/')
-          }
-        })
+            res.json({'message': "User successfully created!"})
           }
         });
-        //res.json 
       }
     }
   })
 })
 
 app.get("/api/rank/result",function(req,res,err){
-  user.find().sort({'score':1}).exec(function(err,docs){
+  user.find().sort({"score": -1}).limit(5).exec(function(err,docs){
           if (err){
             console.log(err.message)
           }else{
             //show ranking result for top 5 player
+            console.log(docs);
             res.send(docs);
           }
-        })
-          
+        })    
 })
 
 // Not found middleware
