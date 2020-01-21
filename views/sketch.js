@@ -1,15 +1,28 @@
 var size = 80;
 var bubbles = [];
 var score = 0;
+var data;
+let timer = 20;
 
-/*
-colorMode(RGB,255);
-smooth();
-*/
+function setup() {
+  createCanvas(680, 1080);
+  frameRate(15);
+  textAlign(CENTER, CENTER);
+  smooth();
+  setInterval(countDown, 1000);
+  var submit = select("#submit-container");
+  submit.hide();
+  var rank = select("#rank-container");
+  rank.position(width * 0.5 - 0.5 * rank.width + 200, height * 0.5);
+  rank.hide();
+  over = false;
+  score = 0;
+}
+
 function Bubble(x, y) {
   this.x = x;
   this.y = y;
-  this.size = 150;
+  this.size = random(50, 150);
   this.speed = 1;
   this.disappear = false;
 
@@ -40,16 +53,6 @@ function Bubble(x, y) {
   };
 }
 
-function setup() {
-  createCanvas(680, 1080);
-  frameRate(15);
-  textAlign(CENTER,CENTER);
-  smooth();
-  var inn = select("#submit-container");
-  inn.hide();
-  over = false;
-  score = 0;
-}
 
 function draw() {
   if (over) {
@@ -64,10 +67,14 @@ function draw() {
     var scoree = select(".score");
     scoree.value(score);
     var formm = select("#submit-container");
-    formm.position(width*.5-.5*formm.width+5,height*.5);
+    formm.position(width * 0.5 - 0.5 * formm.width + 5, height * 0.5);
     formm.show();
   } else {
     background(0);
+    fill('white');
+    textSize(20);
+    display = "Timer:" + timer + " s";
+    text(display, width * 0.9, height * 0.05);
     var count = int(random(-30, 3));
     for (var i = 0; i < max(0, count); ++i) {
       var b = new Bubble(int(random(0, width)), height + 100);
@@ -77,7 +84,6 @@ function draw() {
       bubbles[i].display();
       bubbles[i].update();
     }
-    
   }
 }
 
@@ -85,35 +91,15 @@ function mousePressed() {
   // Check if mouse is inside the circle
   for (var i = 0; i < bubbles.length; ++i) {
     bubbles[i].click();
-    console.log(bubbles.length);
-    if (bubbles.length == 1){
-      over = true;
-    }
   }
 }
 
-/*
-function rankresult(){
-        //ajax call
-         $.ajax({
-                  url: 'https://necessary-rabbit.glitch.me/api/rank/new-user',
-                  method:'POST',
-                  data: {list: "some info"}
-                }).done(function(data){
-                    //if we have a successful post request ... 
-                    if(data.success){
-                        //change the DOM &
-                        //set the data in local storage to persist upon page request
-                        localStorage.setItem("permanentData", data.message);
-                        var savedText = localStorage.getItem("permanentData");
-                        $('li.change').replaceWith(savedText);
+function countDown(){
+  if (timer > 0){
+    timer --;
+  }
+  if (timer == 0){
+    over = true;
+  }
+}
 
-                        return;
-                    }
-                }).fail(function(){
-                   //do nothing ....
-                    console.log('failed...');
-                    return;
-                });
-        };
-*/
