@@ -53,6 +53,7 @@ function Bubble(x, y) {
   };
 }
 
+
 function draw() {
   if (over) {
     background(160);
@@ -101,5 +102,4 @@ function countDown(){
     over = true;
   }
 }
-
 
